@@ -1,3 +1,8 @@
-I am using a private assembler which will be released shortly.
+The original private assembler was never released. Nested Revived uses NestedAsm, a rebuild of it,
+found in the Nested.Assembler folder (see Nested.Assembler/README.md).
 
-Read Asm_syntax.txt for information about how this assembler works.
+From the Nested.Assembler folder:
+    bin\Release\net8.0\NestedAsm.exe ..\Assembly\Project\Includes.asm --base ..\Assembly -o "..\Project Nested\bin\Release\Project_Nested.smc"
+
+Read Asm_syntax.txt for information about how this assembler works. Everything Asm_syntax.txt leaves open
+is documented in Nested.Assembler/README.md.

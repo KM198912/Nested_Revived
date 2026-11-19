@@ -70,7 +70,8 @@ namespace Project_Nested
         {
             var title = new List<byte>();
 
-            title.AddRange(injector.ReadEmulatorTitleBytes());
+            // Same per-game title the injector writes into the SNES header (and the core copies into SRAM)
+            title.AddRange(injector.GameTitleBytes());
             title.Add(injector.ReadEmulatorVersionByte());
 
             return title.ToArray();

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project Nested", "Project Nested\Project Nested.csproj", "{1428DDD8-6690-42E6-8611-CE86EE7124C7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nested.Assembler", "Nested.Assembler\Nested.Assembler.csproj", "{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Sync|Any CPU = Debug Sync|Any CPU
@@ -18,6 +20,12 @@ Global
 		{1428DDD8-6690-42E6-8611-CE86EE7124C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1428DDD8-6690-42E6-8611-CE86EE7124C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1428DDD8-6690-42E6-8611-CE86EE7124C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Debug Sync|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Debug Sync|Any CPU.Build.0 = Debug|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B1F2C3A-8D4E-4F5A-9B7C-2E3D4F5A6B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

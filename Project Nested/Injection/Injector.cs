@@ -227,6 +227,12 @@ namespace Project_Nested.Injection
                     this.ForcedFlags = ForcedFlagEnum.AbsolutePrgBank | ForcedFlagEnum.IndirectLoad | ForcedFlagEnum.IndirectStore;
                     SetInitialBooleans(StaticRange_Sram, StaticRange_e0);
                     break;
+                case 5:
+                    // MMC5, step 1: PRG mode 3 (8 KB banks), CHR mode 3 (1 KB banks); see Mappers/Mapper5.asm
+                    WriteBanks(0x2000, 0x400, PrgBankMirrorMode.Cascade, new byte[] { 0, 1, 0xfe, 0xff });
+                    this.ForcedFlags = ForcedFlagEnum.AbsolutePrgBank | ForcedFlagEnum.IndirectLoad | ForcedFlagEnum.IndirectStore;
+                    SetInitialBooleans(StaticRange_Sram);
+                    break;
                 case 7:
                     WriteBanks(0x8000, 0x2000, PrgBankMirrorMode.DirectMirror, new byte[] { 0, 0, 0, 0 });
                     this.ForcedFlags = ForcedFlagEnum.AbsolutePrgBank | ForcedFlagEnum.IndirectLoad | ForcedFlagEnum.IndirectStore;
@@ -494,6 +500,13 @@ namespace Project_Nested.Injection
 
             // Clone OutData so it can be restored to a state prior to these changes
             var oldOutData = (byte[])this.OutData.Clone();
+
+            // Per-game title in both header copies (HiROM 0x00ffc0, ExHiROM 0x40ffc0); restored with OutData
+            {
+                var title = GameTitleBytes();
+                OutData.WriteArray(0x00ffc0, title, title.Length);
+                OutData.WriteArray(0x40ffc0, title, title.Length);
+            }
 
             // Rom makeup, HiROM vs ExHiROM (required for SD2SNES ExHiROM)
             OutData[0x00ffd5] = 0x31;
@@ -950,6 +963,37 @@ namespace Project_Nested.Injection
         public byte[] ReadEmulatorTitleBytes()
         {
             return OutData.ReadArray(0xffc0, 21);
+        }
+
+        // NES file name without extension, set by the GUI when a ROM is loaded
+        public string SourceName = string.Empty;
+
+        // Per-game SNES title: 12 chars of the NES file name, a space and the CRC32 of the NES ROM
+        // (without iNES header), e.g. "Legend of Ze 1A2B3C4D". Flash carts that name save files by
+        // header title then keep one save per game (and per randomizer seed) instead of sharing
+        // one "Nested Emulator" save. Falls back to the emulator's own title when no ROM is loaded.
+        public byte[] GameTitleBytes()
+        {
+            if (SrcDataCopy == null)
+                return ReadEmulatorTitleBytes();
+
+            const string allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 -_.!&'()";
+            var name = new StringBuilder();
+            foreach (char c in SourceName ?? string.Empty)
+            {
+                char ch = allowed.IndexOf(c) >= 0 ? c : ' ';
+                if (ch == ' ' && (name.Length == 0 || name[name.Length - 1] == ' '))
+                    continue;
+                name.Append(ch);
+                if (name.Length == 12)
+                    break;
+            }
+            var title = name.ToString().TrimEnd().PadRight(12) + " " + GetRomCrc32().ToString("X8");
+
+            var bytes = new byte[21];
+            for (int i = 0; i < 21; i++)
+                bytes[i] = (byte)title[i];
+            return bytes;
         }
 
         public byte ReadEmulatorVersionByte()

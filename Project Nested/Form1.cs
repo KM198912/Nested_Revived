@@ -154,6 +154,7 @@ namespace Project_Nested
         private void LoadNesFile(string filename)
         {
             injector = new Injector(File.ReadAllBytes(filename));
+            injector.SourceName = Path.GetFileNameWithoutExtension(filename);
             if (injector.IsLoaded(true))
             {
                 injector.KnownCallCountChanged += Injector_KnownCallCountChanged;

@@ -112,6 +112,7 @@ BankEnd_c1:
 	.include	"Project/Mappers/Mapper2.asm"
 	.include	"Project/Mappers/Mapper3.asm"
 	.include	"Project/Mappers/Mapper4.asm"
+	.include	"Project/Mappers/Mapper5.asm"
 	.include	"Project/Mappers/Mapper7.asm"
 	.include	"Project/Mappers/Mapper69.asm"
 

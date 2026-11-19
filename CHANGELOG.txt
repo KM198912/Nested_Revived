@@ -1,4 +1,10 @@
 
+Nested Revived (unreleased):
+- Added NestedAsm, a rebuild of the private assembler; the v1.8 core assembles byte-identical to the official template
+- Added mapper 5 (MMC5), work in progress: PRG modes 2 and 3, CHR mode 3, CIRAM nametable mapping; unsupported features stop with an error naming the register
+- Added the game name and CRC32 to the SNES header title, so flash carts keep separate saves per game
+- The build date shown on the error screen is now the date the core was assembled
+
 v1.8.1:
 - Fixed an issue with branch solver in AOT optimization
 - Removed Patreon link
